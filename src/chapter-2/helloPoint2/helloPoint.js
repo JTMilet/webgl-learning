@@ -2,12 +2,15 @@
  * @Author: 杜康
  * @Date: 2023-05-30 10:38:40
  * @LastEditors: 杜康
- * @LastEditTime: 2023-05-30 15:47:56
- * @FilePath: /webgl-learning/src/chapter-2/helloPoint/helloPoint.js
+ * @LastEditTime: 2023-05-30 18:09:42
+ * @FilePath: /webgl-learning/src/chapter-2/helloPoint2/helloPoint.js
  */
-var VSHADER_SOURCE = `void main() {\n
-    gl_Position = vec4(0.0, 0.0, 0.0, 1.0);\n
-    gl_PointSize = 10.0;\n
+var VSHADER_SOURCE = `
+    attribute vec4 a_Position;\n
+    attribute float a_PointSize;\n
+    void main() {\n
+    gl_Position = a_Position;\n
+    gl_PointSize = a_PointSize;\n
 }`
 
 var FSHADER_SOURCE = `void main() {\n
@@ -26,6 +29,10 @@ function main () {
         console.log('Failed to initialize shaders.')
         return
     }
+    var a_Position = gl.getAttribLocation(gl.program, 'a_Position')
+    var a_PointSize = gl.getAttribLocation(gl.program, 'a_PointSize')
+    gl.vertexAttrib3f(a_Position, 0.0, 0.0, 0.0)
+    gl.vertexAttrib1f(a_PointSize, 5.0)
     // 设置背景色
     gl.clearColor(0.0, 0.0, 0.0, 1.0)
     // 清空

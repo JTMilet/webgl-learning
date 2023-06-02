@@ -2,8 +2,8 @@
  * @Author: 杜康
  * @Date: 2023-05-30 10:38:40
  * @LastEditors: 杜康
- * @LastEditTime: 2023-06-02 10:19:13
- * @FilePath: /webgl-learning/src/chapter-3/helloTriangle/helloTriangle.js
+ * @LastEditTime: 2023-06-02 10:34:32
+ * @FilePath: /webgl-learning/src/chapter-3/helloRectangle/helloRectangle.js
  */
 var VSHADER_SOURCE = `
     attribute vec4 a_Position;\n
@@ -37,15 +37,17 @@ function main () {
     gl.clearColor(0.0, 0.0, 0.0, 1.0)
     // 清空
     gl.clear(gl.COLOR_BUFFER_BIT)
-    // 绘制一个点
-    gl.drawArrays(gl.TRIANGLES, 0, n)
+    // 绘制一个矩形面（两个三角形拼接）
+    // gl.drawArrays(gl.TRIANGLE_STRIP, 0, n)
+    // 绘制一个飘带
+    gl.drawArrays(gl.TRIANGLE_FAN, 0, n)
 }
 
 function initVertexBuffers(gl) {
     var vertices = new Float32Array([
-        0.0, 0.5, -0.5, -0.5, 0.5, -0.5
+        -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5
     ])
-    var n = 3
+    var n = 4
     // 创建缓冲区对象
     var vertexBuffer = gl.createBuffer()
     if (!vertexBuffer) {
